@@ -22,4 +22,19 @@ export class KnaveItem extends Item {
         data.ammo.value = data.ammo.min;
     }
   }
+
+  _breakItem() {
+    this.update({'data.broken': true});
+
+    if (actorData) {
+      const lastLetterOfName = actorData.name.slice(-1);
+      const msg = `${lastLetterOfName == 's' ? "'" : "'s"} ${itemData.name} broke`;
+      ChatMessage.create(
+      {
+        user: game.user._id,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        content: msg,
+      });
+    }
+  }
 }

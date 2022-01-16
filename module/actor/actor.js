@@ -38,10 +38,24 @@ export class KnaveActor extends Actor {
     for(let i of actorData.items)
     {
       //calculate max inventory slots and used slots
-      used += i.data.data.slots;
+      const slots = i.data.data.slots;
+      const divisionSignIndex = slots.indexOf('/');
+      if (divisionSignIndex != -1) {
+        const numerator = slots.slice(0, divisionSignIndex);
+        const denominator = slots.slice(divisionSignIndex + 1);
+        if (denominator === 0) {
+          continue;
+        }
+        used += Number(numerator) / Number(denominator);
+      } else {
+        used += Number(i.data.data.slots);
+      }
       //check if actor can use spell based on level
       if(i.type === "spell")
         i.data.data.spellUsable = (Number(actorData.data.level.value) >= Number(i.data.data.level));
+
+      if(i.type === "armor")
+        data.armor.bonus += Number(i.data.data.AP)
     }
     data.inventorySlots.used = used;
 

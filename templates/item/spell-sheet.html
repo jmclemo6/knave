@@ -3,7 +3,7 @@
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.data.name}}"/>
         <div class="header-fields">
             <h1 class="charname"><input name="name" type="text" value="{{item.data.name}}" placeholder="Name"/></h1>
-            <div class="grid grid-2col">              
+            <div class="grid grid-3col">              
               <div class="resource">
                 <label class="resource-label">Used</label><br>
                 <select name="data.used">
@@ -14,12 +14,21 @@
                 </select>
               </div>
               <div class="resource">
+                <label class="resource-label">Type</label>
+                <select name="data.type">
+                  {{#select data.data.type}}
+                  <option value="arcane">Arcane</option>
+                  <option value="miracle">Miracle</option>
+                  {{/select}}
+                </select>
+              </div>
+              <div class="resource">
                 <label class="resource-label">Level</label>
                   <input type="text" name="data.level" value="{{data.data.level}}" data-dtype="Number"/>
               </div>              
               <div class="resource">
                 <label class="resource-label">Slots</label>
-                  <input type="text" name="data.slots" value="{{data.data.slots}}" data-dtype="Number"/>
+                  <input type="text" name="data.slots" value="{{data.data.slots}}" data-dtype="String"/>
               </div>
               <div class="resource">
                 <label class="resource-label">Coppers</label>

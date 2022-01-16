@@ -79,6 +79,11 @@
         "value":0,
         "max":20
       },
+      "injuries":
+      {
+        "current":0,
+        "max":10
+      },
       "traits":
       {
         "physique":"",
@@ -92,7 +97,8 @@
         "background":"",
         "misfortune":"",
         "alignment":""
-      }
+      },
+      "careers": []
     }
   },
   "Item":
@@ -105,12 +111,9 @@
         "name": "",
         "description": "",
         "quantity": 1,
-        "slots": 1,
-        "coppers":1
-      },
-      "quality":
-      {
-        "quality": { "value":1, "min":0, "max":1}
+        "slots": "1",
+        "coppers":1,
+        "broken":false
       },
       "weapon":
       {
@@ -124,11 +127,11 @@
     },
     "weaponMelee":
     {
-      "templates":["base", "quality", "weapon"]      
+      "templates":["base", "weapon"]      
     },
     "weaponRanged":
     {
-      "templates":["base", "quality", "weapon"],      
+      "templates":["base", "weapon"],
       "ammo":
       {
         "value":0,
@@ -138,8 +141,8 @@
     },
     "armor":
     {
-      "templates":["base", "quality"],
-      "defense": 11
+      "templates":["base"],
+      "AP": 0
     },
     "light":
     {
@@ -150,7 +153,8 @@
     {
       "templates": ["base"],
       "used": false,
-      "level": 0
+      "level": 0,
+      "type": ""
     }
   }
 }

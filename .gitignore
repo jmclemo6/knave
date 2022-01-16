@@ -4,3 +4,4 @@ node_modules/
 rabid2Copy.ps1
 CopyToDeadbox.ps1
 CopyToLocal.ps1
+test-in-foundry.sh

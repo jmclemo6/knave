@@ -1,12 +1,12 @@
 {
-  "name": "knave",
-  "title": "KNAVE",
-  "description": "KNAVE is a rules toolkit created by Ben Milton for running old school fantasy RPGs without classes.",
-  "version": "1.7.0",
+  "name": "knave2e",
+  "title": "KNAVE 2e",
+  "description": "KNAVE 2nd Edition is a rules toolkit created by Ben Milton for running old school fantasy RPGs without classes.",
+  "version": "0.1.0",
   "minimumCoreVersion": "9.238",
   "compatibleCoreVersion": "9",
   "templateVersion": 2,
-  "author": "Rabid Baboon",
+  "author": "Jacob McLemore & Rabid Baboon",
   "esmodules": ["module/knave.js"],
   "styles": ["css/knave.css"],
   "scripts": [],
@@ -14,84 +14,84 @@
     {
       "name": "armor",
       "label": "Armor",
-      "system": "knave",
+      "system": "knave2e",
       "path": "./packs/armor.db",
       "entity": "Item"
     },
     {
       "name": "clothing",
       "label": "Cothing",
-      "system": "knave",
+      "system": "knave2e",
       "path": "./packs/clothing.db",
       "entity": "Item"
     },
     {
       "name": "food",
       "label": "Food",
-      "system": "knave",
+      "system": "knave2e",
       "path": "./packs/food.db",
       "entity": "Item"
     },
     {
       "name": "items",
       "label": "Items",
-      "system": "knave",
+      "system": "knave2e",
       "path": "./packs/items.db",
       "entity": "Item"
     },
     {
       "name": "light",
       "label": "Light",
-      "system": "knave",
+      "system": "knave2e",
       "path": "./packs/light.db",
       "entity": "Item"
     },
     {
       "name": "macros",
       "label": "Macros",
-      "system": "knave",
+      "system": "knave2e",
       "path": "./packs/macros.db",
       "entity": "Macro"
     },
     {
       "name": "other",
       "label": "Other",
-      "system": "knave",
+      "system": "knave2e",
       "path": "./packs/other.db",
       "entity": "RollTable"
     },
     {
       "name": "rules",
       "label": "Rules",
-      "system": "knave",
+      "system": "knave2e",
       "path": "./packs/rules.db",
       "entity": "JournalEntry"
     },
     {
       "name": "spells",
       "label": "Spells",
-      "system": "knave",
+      "system": "knave2e",
       "path": "./packs/spells.db",
       "entity": "Item"
     },
     {
       "name": "starting-gear",
       "label": "Starting Gear",
-      "system": "knave",
+      "system": "knave2e",
       "path": "./packs/starting-gear.db",
       "entity": "RollTable"
     },
     {
       "name": "traits",
       "label": "Traits",
-      "system": "knave",
+      "system": "knave2e",
       "path": "./packs/traits.db",
       "entity": "RollTable"
     },
     {
       "name": "weapons",
       "label": "Weapons",
-      "system": "knave",
+      "system": "knave2e",
       "path": "./packs/weapons.db",
       "entity": "Item"
     }

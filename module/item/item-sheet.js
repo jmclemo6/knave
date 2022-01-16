@@ -17,7 +17,7 @@ export class KnaveItemSheet extends ItemSheet {
   /** @override */
   get template() 
   {
-    const path = "systems/knave/templates/item";
+    const path = "systems/knave2e/templates/item";
     // Return a single sheet for all item types.
     //return `${path}/item-sheet.html`;
     // Alternatively, you could use the following return statement to do a

@@ -64,15 +64,7 @@ Hooks.once('init', async function() {
       return (item.data.data.used === "true" || !item.data.data.spellUsable);
     else
     {
-      if(item.data.data.quality)
-        return item.data.data.quality.value <= 0;
-      else
-        return false;
+      return item.data.broken;
     }
-  });
-
-  Handlebars.registerHelper('hasQuality', function(item)
-  {
-    return item.data.data.quality !== undefined;
   });
 });

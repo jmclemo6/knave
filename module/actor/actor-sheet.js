@@ -1,3 +1,5 @@
+import Sortable from "../../node_modules/sortablejs/modular/sortable.core.esm.js";
+
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -13,7 +15,7 @@ export class KnaveActorSheet extends ActorSheet
     return mergeObject(super.defaultOptions,
     {
       classes: ["knave", "sheet", "actor"],
-      template: "systems/knave/templates/actor/actor-sheet.html",
+      template: "systems/knave2e/templates/actor/actor-sheet.html",
       width: 1000,
       height: 620,
       tabs: [{ navSelector: ".description-tabs", contentSelector: ".description-tabs-content", initial: "description" }]
@@ -68,6 +70,11 @@ export class KnaveActorSheet extends ActorSheet
       const item = this.actor.items.get(li.data("itemId"));
       this._onItemRoll(item, ev.currentTarget);
     });
+
+    new Sortable($('.items-list').get(0), {
+      filter: '.item-header',
+      animation: 150
+    })
   }
 
   /* -------------------------------------------- */
@@ -172,9 +179,6 @@ export class KnaveActorSheet extends ActorSheet
       if(item.type === "weaponMelee" && !this._itemIsBroken(item))
       {
         const roll = this._onAbility_Clicked("str");
-        if(roll.dice[0].total === 1)
-          this._weaponCriticalFailure(item);
-
         this._checkToHitTargets(roll, item);
       }
       else if(item.type === "weaponRanged" && !this._itemIsBroken(item))
@@ -182,45 +186,35 @@ export class KnaveActorSheet extends ActorSheet
     }
     else if(eventTarget.title === "damage" && !this._itemIsBroken(item))
     {
-      let r = new Roll(item.data.data.damageDice);
+      if (eventTarget.shiftKey) {
+        var r = new Roll(`${item.data.data.damageDice} + @strMod`, {strMod: this.object.data.data.abilities.str.value})
+        var wasPowerAttack = true;
+        var maxRoll = r.evaluate({async: false, maximize: true});
+      } else {
+        var r = new Roll(item.data.data.damageDice);
+        var isPowerAttack = false;
+        var maxRoll = undefined;
+      }
       r.evaluate({async: false});
       let messageHeader = "<b>" + item.name + "</b> damage";
       r.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }), flavor: messageHeader});
+
+      if (wasPowerAttack && r.total === maxRoll) {
+        item._breakItem();
+      }
 
       this.#_hitTargets.forEach((target)=>
       {
         this._doDamage(target, r.total);
       });
-    }
-  }
 
-  _weaponCriticalFailure(item)
-  {
-      item.data.data.quality.value -= 1;
-      item.update({"data.quality.value":item.data.data.quality.value});
-      if(item.data.data.quality.value <= item.data.data.quality.min)
-      {
-        let content = '<span class="knave-ability-crit knave-ability-critFailure"><b>' + item.name + "</b> broke!</span>";
-        ChatMessage.create({
-          user: game.user._id,
-          speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-          content: content
-        });
-      }
-      else
-      {
-        let content = '<span><b>' + item.name + "</b> quality reduced to " + item.data.data.quality.value + "/" + item.data.data.quality.max; + "</span>";
-        ChatMessage.create({
-          user: game.user._id,
-          speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-          content: content
-        });
-      }
+
+    }
   }
 
   _itemIsBroken(item)
   {
-    if(item.data.data.quality.value <= 0)
+    if(item.data.data.broken)
     {
       let content = '<span class="knave-ability-crit knave-ability-critFailure"><b>' + item.name + "</b> is broken!</span>";
         ChatMessage.create({
@@ -296,30 +290,60 @@ export class KnaveActorSheet extends ActorSheet
     });
   }
 
+  _injure(token, injuriesSustained) {
+    newInjuries = token.actor.data.data.injuries.current + injuriesSustained;
+    token.actor.update({'data.injuries.current': newInjuries})
+    return token.actor.data.data.injuries.current >= token.actor.data.data.injuries.max;
+  }
+
   _doDamage(token, dmg)
   {
     const currentHP = token.actor.data.data.health.value;
     let newHP = currentHP - dmg;
-    if(currentHP > 0 && newHP <= 0)
-    {
-      newHP = 0;
-      const msg = "is unconscious";
-      ChatMessage.create(
-      {
-        user: game.user._id,
-        speaker: ChatMessage.getSpeaker({ actor: token.actor }),
-        content: msg,
-      });
-    }
-    else if(currentHP === 0)
-    {
-      const msg = "is killed";
-      ChatMessage.create(
-      {
-        user: game.user._id,
-        speaker: ChatMessage.getSpeaker({ actor: token.actor }),
-        content: msg,
-      });
+    // If actor was alive
+    if(currentHP > 0 && newHP <= 0) {
+      // Only characters can go unconcious or get injured.
+      // Monsters will just die.
+      if(actor.type === "character") {
+        if (newHP === 0) {
+          const msg = "is unconscious";
+          ChatMessage.create(
+          {
+            user: game.user._id,
+            speaker: ChatMessage.getSpeaker({ actor: token.actor }),
+            content: msg,
+          });
+        } else {
+          injuriesSustained = -newHP;
+          const isDead = this._injure(token, injuriesSustained)
+          if (isDead) {
+            const msg = "is killed";
+            ChatMessage.create(
+            {
+              user: game.user._id,
+              speaker: ChatMessage.getSpeaker({ actor: token.actor }),
+              content: msg,
+            });
+          } else {
+            const msg = `is unconscious and recieved ${injuriesSustained} injur${injuriesSustained > 1 ? 'ies' : 'y'}`;
+            ChatMessage.create(
+            {
+              user: game.user._id,
+              speaker: ChatMessage.getSpeaker({ actor: token.actor }),
+              content: msg,
+            });
+          }
+          newHP = 0;
+        }
+      } else {
+        const msg = "is killed";
+        ChatMessage.create(
+        {
+          user: game.user._id,
+          speaker: ChatMessage.getSpeaker({ actor: token.actor }),
+          content: msg,
+        });
+      }
     }
 
     token.actor.update({'data.health.value': newHP});
