@@ -1,5 +1,3 @@
-import Sortable from "../../node_modules/sortablejs/modular/sortable.core.esm.js";
-
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -71,7 +69,7 @@ export class KnaveActorSheet extends ActorSheet
       this._onItemRoll(item, ev);
     });
 
-    new Sortable($('.items-list').get(0), {
+    new CONFIG.Library.Sortable($('.items-list').get(0), {
       filter: '.item-header',
       animation: 150
     })
