@@ -22,14 +22,23 @@
     img {
       display: block;
     }
+
+    &.knave-encumbered {
+      background-color: rgba($color: red, $alpha: 0.5);
+    }
   }
 
   .item-name {
     margin: 0;
+
+    .knave-encumbered {
+      background-color: rgba($color: red, $alpha: 0.5);
+    }
   }
 
   .item-controls {
     flex: 0 0 86px;
     text-align: right;
   }
+
 }

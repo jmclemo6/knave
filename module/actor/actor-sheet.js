@@ -214,7 +214,7 @@ export class KnaveActorSheet extends ActorSheet
 
   _itemIsBroken(item)
   {
-    if(item.data.data.broken)
+    if(item.data.data.broken === "true")
     {
       let content = '<span class="knave-ability-crit knave-ability-critFailure"><b>' + item.name + "</b> is broken!</span>";
         ChatMessage.create({

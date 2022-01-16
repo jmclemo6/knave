@@ -211,8 +211,14 @@
 .knave .items-list .item img {
   display: block;
 }
+.knave .items-list .item.knave-encumbered {
+  background-color: rgba(255, 0, 0, 0.5);
+}
 .knave .items-list .item-name {
   margin: 0;
+}
+.knave .items-list .item-name .knave-encumbered {
+  background-color: rgba(255, 0, 0, 0.5);
 }
 .knave .items-list .item-controls {
   -webkit-box-flex: 0;

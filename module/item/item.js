@@ -24,7 +24,7 @@ export class KnaveItem extends Item {
   }
 
   _breakItem() {
-    this.update({'data.broken': true});
+    this.update({'data.broken': "true"});
 
     if (actorData) {
       const lastLetterOfName = actorData.name.slice(-1);

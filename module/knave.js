@@ -64,7 +64,7 @@ Hooks.once('init', async function() {
       return (item.data.data.used === "true" || !item.data.data.spellUsable);
     else
     {
-      return item.data.broken;
+      return item.data.data.broken === "true";
     }
   });
 });

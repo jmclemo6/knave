@@ -27,7 +27,7 @@ export class KnaveActor extends Actor {
     const data = actorData.data;
 
     //calculate armor bonus
-    data.armor.bonus = Number(data.armor.value) - Number(10);
+    data.armor.bonus = 0
 
     //clamp health
     if(data.health.value > data.health.max)
@@ -51,13 +51,21 @@ export class KnaveActor extends Actor {
         used += Number(i.data.data.slots);
       }
       //check if actor can use spell based on level
-      if(i.type === "spell")
-        i.data.data.spellUsable = (Number(actorData.data.level.value) >= Number(i.data.data.level));
+      if(i.type === "spell") {
+        const spell_type = i.data.data.type;
+        if(spell_type === "arcane") {
+          i.data.data.spellUsable = (Number(actorData.data.abilities.int.value) >= Number(i.data.data.level))
+        } else if(spell_type === "miracle") {
+          i.data.data.spellUsable = (Number(actorData.data.abilities.wis.value) >= Number(i.data.data.level))
+        }
+      }
 
       if(i.type === "armor")
         data.armor.bonus += Number(i.data.data.AP)
     }
     data.inventorySlots.used = used;
+    // Default armor (when not wearing any) is 11
+    data.armor.value = data.armor.bonus + 11;
 
     // Loop through ability scores, and add their modifiers to our sheet output.
     for (let [key, ability] of Object.entries(data.abilities)) 
