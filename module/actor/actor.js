@@ -27,18 +27,21 @@ export class KnaveActor extends Actor {
     const data = actorData.data;
 
     //calculate armor bonus
-    data.armor.bonus = 0
+    // Default armor (when not wearing any) is 11
+    data.armor.bonus = 1
 
     //clamp health
     if(data.health.value > data.health.max)
       data.health.value = data.health.max;
     
     data.inventorySlots.value = Number(data.abilities.con.value) + Number(10);
+    data.injuries.max = data.inventorySlots.value;
+
     let used = 0;
     for(let i of actorData.items)
     {
       //calculate max inventory slots and used slots
-      const slots = i.data.data.slots;
+      const slots = String(i.data.data.slots);
       const divisionSignIndex = slots.indexOf('/');
       if (divisionSignIndex != -1) {
         const numerator = slots.slice(0, divisionSignIndex);
@@ -64,8 +67,7 @@ export class KnaveActor extends Actor {
         data.armor.bonus += Number(i.data.data.AP)
     }
     data.inventorySlots.used = used;
-    // Default armor (when not wearing any) is 11
-    data.armor.value = data.armor.bonus + 11;
+    data.armor.value = data.armor.bonus + 10;
 
     // Loop through ability scores, and add their modifiers to our sheet output.
     for (let [key, ability] of Object.entries(data.abilities)) 

@@ -39,6 +39,11 @@
             <input type="text" name="data.morale.value" value="{{data.data.morale.value}}" data-dtype="Number"/>
             <button class="knave-morale-button resource-label">Check</button>
           </div>
+          <div class="abilities grid grid-3col">
+            <span class="resource-label">INJURIES</span>
+            <input type="text" name="data.injuries.current" value="{{data.data.injuries.current}}" data-dtype="Number"/>
+            <span name="data.injuries.max">{{data.data.injuries.max}}</span>
+          </div>
         </div>
       </div>
    <!--end first col-->
@@ -110,6 +115,10 @@
               <span>
                 <label for="data.traits.alignment" class="resource-label">Alignment</label>
                 <input type="text" name="data.traits.alignment" value="{{data.data.traits.alignment}}" data-dtype="string"/>
+              </span>
+              <span>
+                <label for="data.traits.careers" class="resource-label">Careers</label>
+                <input type="text" name="data.traits.careers" value="{{data.data.traits.careers}}" data-dtype="string"/>
               </span>
             </div>
           </div>

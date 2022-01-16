@@ -5,11 +5,11 @@
             <h1 class="charname"><input name="name" type="text" value="{{item.data.name}}" placeholder="Name"/></h1>
             <div class="grid grid-3col">    
               <div class="resource">
-                <label class="resource-label">Broken</label><br>
+                <label class="resource-label">Condition</label><br>
                 <select name="data.broken">
                   {{#select data.data.broken}}
-                  <option value="false">False</option>
-                  <option value="true">True</option>
+                  <option value="false">Unbroken</option>
+                  <option value="true">Broken</option>
                   {{/select}}
                 </select>
               </div>

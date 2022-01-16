@@ -68,7 +68,7 @@ export class KnaveActorSheet extends ActorSheet
     {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
-      this._onItemRoll(item, ev.currentTarget);
+      this._onItemRoll(item, ev);
     });
 
     new Sortable($('.items-list').get(0), {
@@ -172,9 +172,9 @@ export class KnaveActorSheet extends ActorSheet
     return r;
   }
 
-  _onItemRoll(item, eventTarget)
+  _onItemRoll(item, event)
   {
-    if(eventTarget.title === "attack")
+    if(event.currentTarget.title === "attack")
     {
       if(item.type === "weaponMelee" && !this._itemIsBroken(item))
       {
@@ -184,15 +184,15 @@ export class KnaveActorSheet extends ActorSheet
       else if(item.type === "weaponRanged" && !this._itemIsBroken(item))
           this._rangedAttackRoll(item);
     }
-    else if(eventTarget.title === "damage" && !this._itemIsBroken(item))
+    else if(event.currentTarget.title === "damage" && !this._itemIsBroken(item))
     {
-      if (eventTarget.shiftKey) {
-        var r = new Roll(`${item.data.data.damageDice} + @strMod`, {strMod: this.object.data.data.abilities.str.value})
+      if (event.shiftKey) {
+        var r = new Roll(`${item.data.data.damageDice} + @strMod`, {strMod: this.object.data.data.abilities.str.value});
+        var maxRoll = new Roll(`${item.data.data.damageDice} + @strMod`, {strMod: this.object.data.data.abilities.str.value}).evaluate({async: false, maximize: true}).total
         var wasPowerAttack = true;
-        var maxRoll = r.evaluate({async: false, maximize: true});
       } else {
         var r = new Roll(item.data.data.damageDice);
-        var isPowerAttack = false;
+        var wasPowerAttack = false;
         var maxRoll = undefined;
       }
       r.evaluate({async: false});
@@ -233,8 +233,6 @@ export class KnaveActorSheet extends ActorSheet
     if(item.data.data.ammo.value > 0)
     {
       const roll = this._onAbility_Clicked("wis");
-      if(roll.dice[0].total === 1)
-        this._weaponCriticalFailure(item);
 
       item.data.data.ammo.value -= 1;
       item.update({"data.ammo.value": item.data.data.ammo.value});
@@ -290,21 +288,21 @@ export class KnaveActorSheet extends ActorSheet
     });
   }
 
-  _injure(token, injuriesSustained) {
-    newInjuries = token.actor.data.data.injuries.current + injuriesSustained;
-    token.actor.update({'data.injuries.current': newInjuries})
+  async _injure(token, injuriesSustained) {
+    const newInjuries = Number(token.actor.data.data.injuries.current) + injuriesSustained;
+    await token.actor.update({'data.injuries.current': newInjuries});
     return token.actor.data.data.injuries.current >= token.actor.data.data.injuries.max;
   }
 
-  _doDamage(token, dmg)
+  async _doDamage(token, dmg)
   {
     const currentHP = token.actor.data.data.health.value;
     let newHP = currentHP - dmg;
     // If actor was alive
-    if(currentHP > 0 && newHP <= 0) {
+    if(newHP <= 0) {
       // Only characters can go unconcious or get injured.
       // Monsters will just die.
-      if(actor.type === "character") {
+      if(token.actor.data.type === "character") {
         if (newHP === 0) {
           const msg = "is unconscious";
           ChatMessage.create(
@@ -314,8 +312,8 @@ export class KnaveActorSheet extends ActorSheet
             content: msg,
           });
         } else {
-          injuriesSustained = -newHP;
-          const isDead = this._injure(token, injuriesSustained)
+          const injuriesSustained = -newHP;
+          const isDead = await this._injure(token, injuriesSustained)
           if (isDead) {
             const msg = "is killed";
             ChatMessage.create(
