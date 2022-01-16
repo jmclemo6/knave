@@ -89,7 +89,7 @@ export class KnaveActorSheet extends ActorSheet
     event.preventDefault();
     const header = event.currentTarget;
     // Get the type of item to create.
-    const type = header.dataset.type;
+    const type = $("select[name='item_type']").val();
     // Grab any data associated with this control.
     const data = duplicate(header.dataset);
     // Initialize a default name.

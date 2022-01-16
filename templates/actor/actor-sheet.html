@@ -135,6 +135,17 @@
       <div class="flex-group-center">
           {{!-- Owned Items Tab --}}
           <div class="items" data-group="primary" data-tab="items">
+              <div class="resource">
+                <label class="resource-label">New Item Type</label><br>
+                <select name="item_type">
+                  <option value="armor">Armor</option>
+                  <option value="item">Item</option>
+                  <option value="spell">Spell</option>
+                  <option value="light">Light</option>
+                  <option value="weaponMelee">Melee Weapon</option>
+                  <option value="weaponRanged">Ranged Weapon</option>
+                </select>
+              </div>
               <ol class="items-list">
                   <li class="item flexrow item-header">
                     <div class="item-name">Slots {{inventorySlots data.data.inventorySlots}}</div>
