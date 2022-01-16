@@ -9,7 +9,7 @@
   "author": "Jacob McLemore & Rabid Baboon",
   "esmodules": ["module/knave.js"],
   "styles": ["css/knave.css"],
-  "scripts": [],
+  "scripts": ["lib/sortable/Sortable.min.js"],
   "packs": [
     {
       "name": "armor",

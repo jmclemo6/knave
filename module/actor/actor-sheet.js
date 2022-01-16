@@ -69,7 +69,7 @@ export class KnaveActorSheet extends ActorSheet
       this._onItemRoll(item, ev);
     });
 
-    new CONFIG.Library.Sortable($('.items-list').get(0), {
+    new Sortable($('.items-list').get(0), {
       filter: '.item-header',
       animation: 150
     })

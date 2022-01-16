@@ -23,6 +23,8 @@
     "sortablejs": "^1.14.0"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "rollup": "^2.64.0",
     "sass": "^1.48.0"
   }
 }

@@ -3,10 +3,8 @@ import { KnaveActor } from "./actor/actor.js";
 import { KnaveActorSheet } from "./actor/actor-sheet.js";
 import { KnaveItem } from "./item/item.js";
 import { KnaveItemSheet } from "./item/item-sheet.js";
-import Sortable from "../node_modules/sortablejs/modular/sortable.core.esm.js";
 
 Hooks.once('init', async function() {
-
   game.knave = {
     KnaveActor,
     KnaveItem
@@ -68,7 +66,4 @@ Hooks.once('init', async function() {
       return item.data.data.broken === "true";
     }
   });
-
-  CONFIG.Library = {}
-  CONFIG.Library.Sortable = Sortable;
 });
