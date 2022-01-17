@@ -96,9 +96,9 @@
         "speech":"",
         "background":"",
         "misfortune":"",
-        "alignment":""
-      },
-      "careers": []
+        "alignment":"",
+        "careers": ""
+      }
     }
   },
   "Item":

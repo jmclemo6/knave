@@ -16,7 +16,8 @@ export class KnaveActorSheet extends ActorSheet
       template: "systems/knave2e/templates/actor/actor-sheet.html",
       width: 1000,
       height: 620,
-      tabs: [{ navSelector: ".description-tabs", contentSelector: ".description-tabs-content", initial: "description" }]
+      tabs: [{ navSelector: ".description-tabs", contentSelector: ".description-tabs-content", initial: "description" }],
+      dragDrop: [{ dragSelector: ".item", dropSelector: ".items-list" }]
     });
   }
 
@@ -68,11 +69,6 @@ export class KnaveActorSheet extends ActorSheet
       const item = this.actor.items.get(li.data("itemId"));
       this._onItemRoll(item, ev);
     });
-
-    new Sortable($('.items-list').get(0), {
-      filter: '.item-header',
-      animation: 150
-    })
   }
 
   /* -------------------------------------------- */

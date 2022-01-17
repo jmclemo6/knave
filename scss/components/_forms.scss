@@ -44,6 +44,24 @@
   height: 100%;
 }
 
+.tab {
+  height: 1000px;
+  overflow-y: scroll;
+  .description-editor {
+    height: 100%;
+    .editor {
+      height: 100%;
+      .editor-content {
+        height: 100%;
+      }
+    }
+  }
+}
+
+.description-editor .knave-character-description {
+  height: 100px;
+}
+
 .tox {
   .tox-editor-container {
     background: $c-white;

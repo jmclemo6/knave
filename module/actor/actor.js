@@ -49,11 +49,19 @@ export class KnaveActor extends Actor {
         if (denominator === 0) {
           continue;
         }
-        used += Number(numerator) / Number(denominator);
+        var base_slots = Number(numerator) / Number(denominator);
       } else {
-        used += Number(i.data.data.slots);
+        var base_slots = Number(i.data.data.slots);
       }
-      //check if actor can use spell based on level
+      used += (base_slots * Number(i.data.data.quantity))
+
+      /**
+       * Check if Actor can use spell.
+       * 
+       * Arcane spells check based on int.
+       * Miracles check based on wis.
+       * (Not technically in the rules yet, but seems to be alluded to in the Cleric archetype description)
+       */
       if(i.type === "spell") {
         const spell_type = i.data.data.type;
         if(spell_type === "arcane") {

@@ -99,8 +99,8 @@
   "gridDistance": 5,
   "gridUnits": "ft",
   "primaryTokenAttribute": "health",  
-  "url": "https://github.com/jrommann/knave",
-  "manifest": "https://raw.githubusercontent.com/jrommann/knave/master/system.json",
-  "download": "https://github.com/jrommann/knave/archive/1.7.0.zip",
+  "url": "https://github.com/jmclemo6/knave2e",
+  "manifest": "https://raw.githubusercontent.com/jmclemo6/knave2e/master/system.json",
+  "download": "https://github.com/jmclemo6/knave2e/archive/0.1.0.zip",
   "license": "LICENSE.txt"
 }

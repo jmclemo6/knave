@@ -164,6 +164,22 @@
 .knave .sheet-body .tab .editor {
   height: 100%;
 }
+.knave .tab {
+  height: 1000px;
+  overflow-y: scroll;
+}
+.knave .tab .description-editor {
+  height: 100%;
+}
+.knave .tab .description-editor .editor {
+  height: 100%;
+}
+.knave .tab .description-editor .editor .editor-content {
+  height: 100%;
+}
+.knave .description-editor .knave-character-description {
+  height: 100px;
+}
 .knave .tox .tox-editor-container {
   background: #fff;
 }
