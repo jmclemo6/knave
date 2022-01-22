@@ -75,9 +75,7 @@ export class KnaveActorSheet extends ActorSheet
       filter: '.item-header',
       animation: 150,
       onEnd: async (event) => {
-        console.log(event);
         const new_item_list = Array.from(event.to.children).slice(1)
-        console.log(new_item_list);
 
         const updates = new_item_list.map((item, index) => {
           return {
@@ -85,13 +83,11 @@ export class KnaveActorSheet extends ActorSheet
             'index': index
           }
         }); 
-        console.log(updates);
 
         for (let update of updates) {
           const item = this.actor.data.items.get(update['id']);
           await item.update({"sort": update['index']});
         }
-        console.log(this.actor.data.items);
       },
     });
   }
