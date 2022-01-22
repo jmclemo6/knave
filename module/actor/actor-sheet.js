@@ -28,7 +28,6 @@ export class KnaveActorSheet extends ActorSheet
   getData()
   {
     let sheet = super.getData();
-    console.log(sheet);
     return sheet;
   }
 
