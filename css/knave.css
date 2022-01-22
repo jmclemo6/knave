@@ -209,9 +209,6 @@
   padding: 0;
   overflow-y: auto;
 }
-.knave .items-list .item-header {
-  font-weight: bold;
-}
 .knave .items-list .item {
   height: 30px;
   line-height: 24px;
@@ -233,12 +230,15 @@
 .knave .items-list .item-name {
   margin: 0;
 }
-.knave .items-list .item-name .knave-encumbered {
-  background-color: rgba(255, 0, 0, 0.5);
-}
 .knave .items-list .item-controls {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 86px;
   flex: 0 0 86px;
   text-align: right;
+}
+.knave .item-header {
+  font-weight: bold;
+}
+.knave .knave-encumbered {
+  background-color: rgba(255, 0, 0, 0.5);
 }

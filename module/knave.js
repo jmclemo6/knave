@@ -60,10 +60,10 @@ Hooks.once('init', async function() {
   Handlebars.registerHelper('isItemBroken', function(item)
   {
     if(item.type === "spell")
-      return (item.data.data.used === "true" || !item.data.data.spellUsable);
+      return (item.data.used === "true" || !item.data.spellUsable);
     else
     {
-      return item.data.data.broken === "true";
+      return item.data.broken === "true";
     }
   });
 });

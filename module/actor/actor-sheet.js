@@ -17,7 +17,7 @@ export class KnaveActorSheet extends ActorSheet
       width: 1000,
       height: 620,
       tabs: [{ navSelector: ".description-tabs", contentSelector: ".description-tabs-content", initial: "description" }],
-      dragDrop: [{ dragSelector: ".item", dropSelector: ".items-list" }]
+      // dragDrop: [{ dragSelector: ".item", dropSelector: ".items-list" }]
     });
   }
 
@@ -28,6 +28,7 @@ export class KnaveActorSheet extends ActorSheet
   getData()
   {
     let sheet = super.getData();
+    console.log(sheet);
     return sheet;
   }
 
@@ -68,6 +69,30 @@ export class KnaveActorSheet extends ActorSheet
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       this._onItemRoll(item, ev);
+    });
+
+    new Sortable(html.find(".items-list").get(0), {
+      filter: '.item-header',
+      animation: 150,
+      onEnd: async (event) => {
+        console.log(event);
+        const new_item_list = Array.from(event.to.children).slice(1)
+        console.log(new_item_list);
+
+        const updates = new_item_list.map((item, index) => {
+          return {
+            'id': item.dataset.itemId,
+            'index': index
+          }
+        }); 
+        console.log(updates);
+
+        for (let update of updates) {
+          const item = this.actor.data.items.get(update['id']);
+          await item.update({"sort": update['index']});
+        }
+        console.log(this.actor.data.items);
+      },
     });
   }
 
@@ -298,7 +323,7 @@ export class KnaveActorSheet extends ActorSheet
       // Monsters will just die.
       if(token.actor.data.type === "character") {
         if (newHP === 0) {
-          const msg = "is unconscious";
+          const msg = "is on Death's door";
           ChatMessage.create(
           {
             user: game.user._id,
@@ -317,7 +342,7 @@ export class KnaveActorSheet extends ActorSheet
               content: msg,
             });
           } else {
-            const msg = `is unconscious and recieved ${injuriesSustained} injur${injuriesSustained > 1 ? 'ies' : 'y'}`;
+            const msg = `is on Death's door and recieved ${injuriesSustained} injur${injuriesSustained > 1 ? 'ies' : 'y'}`;
             ChatMessage.create(
             {
               user: game.user._id,

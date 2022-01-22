@@ -38,6 +38,7 @@ export class KnaveActor extends Actor {
     data.injuries.max = data.inventorySlots.value;
 
     let used = 0;
+    let sortOrder = 1;
     for(let i of actorData.items)
     {
       //calculate max inventory slots and used slots
